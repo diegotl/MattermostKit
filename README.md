@@ -21,6 +21,8 @@
 
 [Swift](https://swift.org) package for sending messages to [Mattermost](https://mattermost.com) via Incoming Webhooks with full support for Slack-compatible attachments and Mattermost-specific features.
 
+> **Also check out [SlackKit](https://github.com/diegotl/SlackKit)** - A companion package for sending messages to Slack with full Block Kit support.
+
 ## Features
 
 - **Modern Result Builder API** - Declarative DSL for building messages with attachments
