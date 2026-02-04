@@ -1,4 +1,4 @@
-name: AI Code Review (Z.ai)
+name: AI Code Review
 
 on:
   pull_request:
@@ -30,12 +30,13 @@ jobs:
           FILES_CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | wc -l)
           echo "files_changed=$FILES_CHANGED" >> $GITHUB_OUTPUT
 
-      - name: Review with ${{ secrets.ZAI_MODEL }}
+      - name: Code Review
         id: review
         run: |
+          set +x  # Disable verbose mode to prevent secret leakage in logs
           DIFF=$(cat pr.diff | jq -Rs .)
 
-          RESPONSE=$(curl -s https://api.z.ai/api/coding/paas/v4/chat/completions \
+          HTTP_CODE=$(curl -s -o response.json -w "%{http_code}" https://api.z.ai/api/coding/paas/v4/chat/completions \
             -H "Authorization: Bearer ${{ secrets.ZAI_API_KEY }}" \
             -H "Content-Type: application/json" \
             -H "Accept-Language: en-US,en" \
@@ -55,16 +56,20 @@ jobs:
               \"max_tokens\": 4096
             }")
 
+          if [ "$HTTP_CODE" -ne 200 ]; then
+            echo "Error: API returned $HTTP_CODE"
+            cat response.json
+            exit 1
+          fi
+
+          RESPONSE=$(cat response.json)
           REVIEW=$(echo "$RESPONSE" | jq -r '.choices[0].message.content')
           echo "$REVIEW" > review.md
 
           cat > review_with_header.md << EOF
-          ### 🤖 AI Code Review (${{ secrets.ZAI_MODEL }})
+          ### 🧠 AI Code Review
 
           $REVIEW
-
-          ---
-          <sub>Reviewed by [${{ secrets.ZAI_MODEL }}](https://docs.z.ai/guides/llm/glm-4.7) from Z.ai</sub>
           EOF
 
           if [ -n "${{ steps.diff.outputs.warning }}" ]; then
