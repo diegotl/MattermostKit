@@ -63,7 +63,8 @@ extension Props {
         @PropsBuilder properties: () -> [String: AnyCodable]
     ) {
         self.card = card
-        self.additionalProperties = properties().isEmpty ? nil : properties()
+        let builtProperties = properties()
+        self.additionalProperties = builtProperties.isEmpty ? nil : builtProperties
     }
 }
 

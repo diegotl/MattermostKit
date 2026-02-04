@@ -39,6 +39,11 @@ public enum ConfirmationBuilder {
     public static func buildEither(second component: [ConfirmationComponent]) -> [ConfirmationComponent] {
         component
     }
+
+    /// Builds a component array from a for loop
+    public static func buildArray(_ components: [[ConfirmationComponent]]) -> [ConfirmationComponent] {
+        components.flatMap { $0 }
+    }
 }
 
 // MARK: - Confirmation Components
@@ -70,7 +75,7 @@ extension Confirmation {
 
         for component in builder() {
             switch component {
-            case .confirmButton(let text, let style):
+            case .confirmButton(let text, _):
                 confirmText = text
             case .denyButton(let text):
                 denyText = text
