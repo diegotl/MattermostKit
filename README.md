@@ -5,15 +5,9 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/diegotl/MattermostKit/actions/workflows/ci.yml">
-        <img src="https://github.com/diegotl/MattermostKit/actions/workflows/ci.yml/badge.svg" alt="CI">
-    </a>
-    <a href="https://github.com/diegotl/MattermostKit/releases">
-        <img src="https://img.shields.io/github/v/release/diegotl/MattermostKit" alt="Version">
-    </a>
-    <a href="LICENSE">
-        <img src="https://img.shields.io/github/license/diegotl/MattermostKit" alt="License">
-    </a>
+    <a href="https://github.com/diegotl/MattermostKit/actions/workflows/ci.yml"><img src="https://github.com/diegotl/MattermostKit/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+    <a href="https://github.com/diegotl/MattermostKit/releases"><img src="https://img.shields.io/github/v/release/diegotl/MattermostKit" alt="Version"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/diegotl/MattermostKit" alt="License"></a>
     <img src="https://img.shields.io/badge/platform-macos%20%7C%20ios%20%7C%20tvos%20%7C%20watchos-lightgrey" alt="Platform">
     <img src="https://img.shields.io/badge/swift-6.0-orange.svg" alt="Swift">
     <img src="https://img.shields.io/badge/dependencies-zero-brightgreen" alt="Dependencies">
