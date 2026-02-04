@@ -507,6 +507,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Incoming Webhooks](https://developers.mattermost.com/integrate/webhooks/incoming/)
 - [Message Attachments](https://developers.mattermost.com/integrate/reference/message-attachments/)
 - [Message Priority](https://developers.mattermost.com/integrate/reference/message-priority/)
-
-# AI Code Review Test
-This change tests the automated AI code review workflow.
