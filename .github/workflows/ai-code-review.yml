@@ -33,6 +33,10 @@ jobs:
 
       - name: Code Review
         id: review
+        env:
+          API_KEY: ${{ secrets.AI_PROVIDER_API_KEY }}
+          API_ENDPOINT: ${{ secrets.AI_PROVIDER_API_ENDPOINT }}
+          MODEL: ${{ secrets.AI_PROVIDER_MODEL }}
         run: |
           set +x  # Disable verbose mode to prevent secret leakage in logs
           DIFF=$(cat pr.diff | jq -Rs .)
@@ -43,12 +47,12 @@ jobs:
           HTTP_CODE=0
 
           while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
-            HTTP_CODE=$(curl -s -o response.json -w "%{http_code}" ${{ secrets.ZAI_API_ENDPOINT }} \
-              -H "Authorization: Bearer ${{ secrets.ZAI_API_KEY }}" \
+            HTTP_CODE=$(curl -s -o response.json -w "%{http_code}" $API_ENDPOINT \
+              -H "Authorization: Bearer $API_KEY" \
               -H "Content-Type: application/json" \
               -H "Accept-Language: en-US,en" \
               -d "{
-                \"model\": \"${{ secrets.ZAI_MODEL }}\",
+                \"model\": \"$MODEL\",
                 \"messages\": [
                   {
                     \"role\": \"system\",
