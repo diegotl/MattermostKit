@@ -65,6 +65,14 @@ jobs:
 
           RESPONSE=$(cat response.json)
           REVIEW=$(echo "$RESPONSE" | jq -r '.choices[0].message.content')
+
+          # Check if review was extracted successfully
+          if [ -z "$REVIEW" ] || [ "$REVIEW" == "null" ]; then
+            echo "Error: Failed to extract review content from API response"
+            echo "Response: $RESPONSE"
+            exit 1
+          fi
+
           echo "$REVIEW" > review.md
 
           cat > review_with_header.md << EOF
